@@ -1,0 +1,435 @@
+{
+    "soa": {
+        "files": [
+            "fmw_12.2.1.0.0_soaqs_Disk1_1of2.zip",
+            "fmw_12.2.1.0.0_soaqs_Disk1_2of2.zip"
+        ],
+        "cluster-name": "soa_cluster1",
+        "server-name": "soa_server1",
+        "server-name-prefix": "soa_",
+        "server-port": 9001,
+        "server-ssl-port": 9002,
+        "variables": "SOA_PROFILE_TYPE",
+        "comp_ids": [
+            "MDS",
+            "WLS",
+            "UCSUMS",
+            "SOAINFRA"
+        ],
+        "template-name": "Oracle SOA Suite",
+        "jms-system-resources": [
+        	"UMSJMSSystemResource",
+        	"BPMJMSModule",
+        	"SOAJMSModule"
+        ],
+        "version": "12.2.1",
+        "file-stores": [
+            "mds-soa"
+        ],
+        "test-dir": "soa",
+        "installer": "fmw_12.2.1.0.0_soa_quickstart.jar"
+    },
+    "em": {
+        "version": "12.2.1",
+        "datasources": [
+            {
+                "name": "LocalSvcTblDataSource",
+                "schema": "STB"
+            }
+        ],
+        "comp_ids": [
+            "STB",
+            "OPSS",
+            "IAU",
+            "IAU_VIEWER",
+            "IAU_APPEND"
+        ],
+        "template-name": "Oracle Enterprise Manager"
+    },
+    "wsm": {
+        "version": "12.2.1",
+        "file-stores": [
+            "mds-owsm"
+        ],
+        "comp_ids": [
+            "MDS"
+        ],
+        "template-name": "Oracle WSM Policy Manager"
+    },
+    "analytics": {
+        "server-name": "WC_Portal",
+        "server-name-prefix": "wcp_portal_",
+        "server-port": 18888,
+        "server-ssl-port": 19888,
+        "cluster-name": "portal_cluster1",
+        "variables": "ANALYTICS_WITH_PARTITIONING",
+        "version": "12.2.1.0",
+        "comp_ids": [
+            "ACTIVITIES"
+        ],
+        "template-name": "Oracle WebCenter Analytics Collector"
+    },
+    "vs": {
+        "server-name": "visitorservices_server1",
+        "server-name-prefix": "wcs_vs_",
+        "server-port": 15001,
+        "server-ssl-port": 16001,
+        "jms-system-resources": [
+        	"VSjms Module"
+        ],
+        "template-name": "Oracle WebCenter Sites - Visitor Services",
+        "version": "12.2.1.0.0",
+        "comp_ids": [
+            "WCSITESVS"
+        ],
+        "cluster-name": "vs_cluster1"
+    },
+    "ucm": {
+        "server-name": "UCM_server1",
+        "server-name-prefix": "wcc_ucm_",
+        "server-port": 16200,
+        "server-ssl-port": 17200,
+        "jms-system-resources": [
+        	"CsJmsModule"
+        ],
+        "template-name": "Oracle Universal Content Management - Content Server",
+        "version": "12.2.1",
+        "comp_ids": [
+            "CONTENT",
+            "CONTENTSEARCH"
+        ],
+        "cluster-name": "ucm_cluster1"
+    },
+    "osb": {
+        "server-name": "osb_server1",
+        "server-name-prefix": "osb_",
+        "server-port": 9001,
+        "server-ssl-port": 9002,
+        "version": "12.2.1",
+        "jms-system-resources": [
+        	"UMSJMSSystemResource",
+        	"WseeJmsModule",
+        	"jmsResources"
+        ],
+        "cluster-name": "osb_cluster1",
+        "template-name": "Oracle Service Bus"
+    },
+    "ohs": {
+        "files": [
+            "fmw_12.2.1.0.0_ohs_linux64_Disk1_1of1.zip"
+        ],
+        "install_type": "Colocated HTTP Server (Managed through WebLogic server)",
+        "template-name": "Oracle HTTP Server (Collocated)",
+        "version": "12.2.1",
+        "server-port": 9001,
+        "server-ssl-port": 9002,
+        "test-dir": "ohs",
+        "installer": "fmw_12.2.1.0.0_ohs_linux64.bin"
+    },
+    "wcp": {
+        "files": [
+            "fmw_12.2.1.0.0_wcportal_Disk1_1of1.zip"
+        ],
+        "installer": "fmw_12.2.1.0.0_wcportal_generic.jar",
+        "test-dir": "wcportal",
+        "install_type": "WebCenter Portal"
+    },
+    "wcs": {
+        "files": [
+            "fmw_12.2.1.0.0_wcsites_Disk1_1of1.zip"
+        ],
+        "installer": "fmw_12.2.1.0.0_wcsites_generic.jar",
+        "test-dir": "wcsites",
+        "install_type": "WebCenter Sites"
+    },
+    "pagelet": {
+        "server-name": "WC_Portlet",
+        "server-name-prefix": "wcp_portlet_",
+        "server-port": 18889,
+        "server-ssl-port": 19889,
+        "version": "12.2.1.0",
+        "cluster-name": "portlet_cluster1",
+        "comp_ids": [
+            "MDS"
+        ],
+        "template-name": "Oracle WebCenter Pagelet Producer"
+    },
+    "ess": {
+        "comp_ids": [
+            "ESS"
+        ]
+    },
+    "discussion": {
+        "server-name": "WC_Collaboration",
+        "server-name-prefix": "wcp_collab_",
+        "server-port": 18890,
+        "server-ssl-port": 19890,
+        "version": "12.2.1.0",
+        "cluster-name": "collab_cluster1",
+        "comp_ids": [
+            "DISCUSSIONS"
+        ],
+        "template-name": "Oracle WebCenter Discussion Server"
+    },
+    "sites": {
+        "server-name": "wcsites_server1",
+        "server-name-prefix": "wcs_sites_",
+        "server-port": 15001,
+        "server-ssl-port": 16001,
+        "version": "12.2.1.0.0",
+        "cluster-name": "sites_cluster1",
+        "comp_ids": [
+            "WCSITES"
+        ],
+        "template-name": "Oracle WebCenter Sites"
+    },
+    "wcc": {
+        "files": [
+            "fmw_12.2.1.0.0_wccontent_Disk1_1of1.zip"
+        ],
+        "installer": "fmw_12.2.1.0.0_wccontent_generic.jar",
+        "test-dir": "wccontent",
+        "install_type": "WebCenter Content"
+    },
+    "wccadf": {
+        "datasources": [
+            {
+                "name": "mds-WCCUIMDSREPO",
+                "schema": "MDS"
+            }
+        ],
+        "server-name": "WCCADF_server1",
+        "server-name-prefix": "wcc_adf_",
+        "server-port": 16225,
+        "server-ssl-port": 17225,
+        "comp_ids": [
+            "MDS"
+        ],
+        "template-name": "Oracle WebCenter Content - Web UI",
+        "version": "12.2.1",
+        "cluster-name": "wccadf_cluster1",
+        "credentials": {
+        	"oracle.wcc.security": {
+        		"wccadfConnectUser": {
+        			"username": "sysadmin",
+        			"password": "welcome1"
+        		}
+        	}
+        }
+    },
+    "sc-ex": {
+        "server-name": "sitecapture_server1",
+        "server-name-prefix": "wcs_sc_",
+        "server-port": 15001,
+        "server-ssl-port": 16001,
+        "version": "12.2.1.0.0",
+        "cluster-name": "sc_cluster1",
+        "comp_ids": [
+            "WCSITES"
+        ],
+        "template-name": "Oracle WebCenter Sites - SiteCapture with Examples"
+    },
+    "portlet": {
+        "server-name": "WC_Portlet",
+        "server-name-prefix": "wcp_portlet_",
+        "server-port": 18889,
+        "server-ssl-port": 19889,
+        "version": "12.2.1.0",
+        "cluster-name": "portlet_cluster1",
+        "comp_ids": [
+            "MDS",
+            "PORTLET"
+        ],
+        "template-name": "Oracle WebCenter Portlet Producers"
+    },
+    "capture": {
+        "server-name": "capture_server1",
+        "server-name-prefix": "wcc_capture_",
+        "server-port": 16400,
+        "server-ssl-port": 17400,
+        "jms-system-resources": [
+        	"capture-jms-module"
+        ],
+        "template-name": "Oracle WebCenter Enterprise Capture",
+        "version": "12.2.1",
+        "comp_ids": [
+            "MDS",
+            "CAPTURE"
+        ],
+        "cluster-name": "capture_cluster1"
+    },
+    "portal": {
+        "server-name": "WC_Portal",
+        "server-name-prefix": "wcp_portal_",
+        "server-port": 18888,
+        "server-ssl-port": 19888,
+        "version": "12.2.1.0",
+        "cluster-name": "portal_cluster1",
+        "comp_ids": [
+            "MDS",
+            "WEBCENTER"
+        ],
+        "template-name": "Oracle WebCenter Portal"
+    },
+    "b2b": {
+        "version": "12.2.1",
+        "template-name": "Oracle B2B"
+    },
+    "insights": {
+        "server-name": "insights_server1",
+        "server-name-prefix": "wcs_ins_",
+        "server-port": 9001,
+        "server-ssl-port": 9002,
+        "version": "12.2.1.0.0",
+        "cluster-name": "insights_cluster1",
+        "template-name": "Oracle WebCenter Sites - Insights"
+    },
+    "jdk": {
+        "files": [
+            "jdk-8u74-linux-x64.tar.gz"
+        ],
+        "patches": [
+        ]
+    },
+    "ss": {
+        "server-name": "satellite_server1",
+        "server-name-prefix": "wcs_ss_",
+        "server-port": 9001,
+        "server-ssl-port": 9002,
+        "version": "12.2.1.0.0",
+        "cluster-name": "satellite_cluster1",
+        "template-name": "Oracle WebCenter Sites - Satellite Server"
+    },
+    "wls": {
+        "files": [
+            "fmw_12.2.1.0.0_infrastructure_Disk1_1of1.zip"
+        ],
+        "installer": "fmw_12.2.1.0.0_infrastructure.jar",
+        "test-dir": "wlserver",
+        "install_type": "Fusion Middleware Infrastructure",
+        "patches": [
+        	"p22331568_122100_Generic.zip",
+        	"p22541322_122100_Generic.zip"
+        ],
+        "template-name": "Basic WebLogic Server Domain",
+        "version": "12.2.1",
+        "server-name": "adminserver",
+        "nm-username": "nmadmin",
+        "nm_password": "welcome1",
+        "nm-port": 5556,
+        "as-username": "weblogic",
+        "as_password": "welcome1",
+        "as-port": 7001,
+        "as-ssl-port": 7002,
+        "server-start-mode": "prod"
+    },
+    "bpm": {
+        "files": [
+            "fmw_12.2.1.0.0_bpmqs_Disk1_1of2.zip",
+            "fmw_12.2.1.0.0_bpmqs_Disk1_2of2.zip"
+        ],
+        "cluster-name": "soa_cluster1",
+        "server-name": "soa_server1",
+        "server-name-prefix": "soa_",
+        "server-port": 9001,
+        "server-ssl-port": 9002,
+        "variables": "SOA_PROFILE_TYPE",
+        "comp_ids": [
+            "MDS",
+            "WLS",
+            "UCSUMS",
+            "SOAINFRA"
+        ],
+        "template-name": "Oracle BPM Suite",
+        "version": "12.2.1",
+        "jms-system-resources": [
+        	"UMSJMSSystemResource",
+        	"BPMJMSModule",
+        	"SOAJMSModule"
+        ],
+        "file-stores": [
+            "mds-soa"
+        ],
+        "test-dir": "soa",
+        "installer": "fmw_12.2.1.0.0_bpm_quickstart.jar"
+    },
+    "api": {
+        "version": "12.2.1",
+        "template-name": "Oracle API Manager"
+    },
+    "healthcare": {
+        "files": [
+            "fmw_12.2.1.0.0_b2b_Disk1_1of1.zip"
+        ],
+        "installer": "fmw_12.2.1.0.0_b2bhealthcare.jar",
+        "test-dir": "soa",
+        "variables": "HEALTHCARE_INTEGRATION=YES",
+        "version": "12.2.1",
+        "template-name": "Oracle SOA Suite for healthcare integration"
+    },
+    "sc": {
+        "server-name": "sitecapture_server1",
+        "server-name-prefix": "wcs_sc_",
+        "server-port": 9001,
+        "server-ssl-port": 9002,
+        "version": "12.2.1.0.0",
+        "cluster-name": "sc_cluster1",
+        "comp_ids": [
+            "WCSITES"
+        ],
+        "template-name": "Oracle WebCenter Sites - SiteCapture"
+    },
+    "ibr": {
+        "server-name": "IBR_server1",
+        "server-name-prefix": "wcc_ibr_",
+        "server-port": 16250,
+        "server-ssl-port": 17250,
+        "version": "12.2.1",
+        "cluster-name": "ibr_cluster1",
+        "template-name": "Oracle Universal Content Management - Inbound Refinery"
+    },
+    "bam": {
+        "server-name": "bam_server1",
+        "server-name-prefix": "bam_",
+        "server-port": 19001,
+        "server-ssl-port": 19002,
+        "template-name": "Oracle Business Activity Monitoring",
+        "version": "12.2.1",
+        "jms-system-resources": [
+        	"UMSJMSSystemResource",
+        	"BamPersistenceJmsSystemModule",
+        	"BamReportCacheJmsSystemModule",
+        	"BamAlertEngineJmsSystemModule",
+        	"BAMJMSSystemResource",
+        	"BamCQServiceJmsSystemResource_bam_server1"
+        ],
+        "comp_ids": [
+            "MDS",
+            "WLS",
+            "UCSUMS",
+            "SOAINFRA"
+        ],
+        "cluster-name": "bam_cluster1"
+    },
+    "sites-ex": {
+        "server-name": "wcsites_server1",
+        "server-name-prefix": "wcs_sites_",
+        "server-port": 9001,
+        "server-ssl-port": 9002,
+        "version": "12.2.1.0.0",
+        "cluster-name": "sites_cluster1",
+        "comp_ids": [
+            "WCSITES"
+        ],
+        "template-name": "Oracle WebCenter Sites with Examples"
+    },
+    "opatch": {
+       "patches": [
+        ]
+    },
+    "database": {
+    	"connect-string": "localhost:1521/orcl.justinpaul.com",
+    	"sys-password": "welcome1",
+    	"schema-password": "welcome1"
+    }
+}
