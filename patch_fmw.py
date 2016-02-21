@@ -79,7 +79,7 @@ def main(options, arguments):
                 filelist.extend(patchfile.namelist())
                 for zipinfo in patchfile.infolist():
                     extractedfile = patchfile.extract(zipinfo.filename, scratch)
-                    os.chmod(extractedfile, zipinfo.external_attr >> 16 & 0xFFF)
+                    os.chmod(extractedfile, zipinfo.external_attr >> 16 & 0xFFF | stat.S_IRUSR | stat.S_IWUSR)
                 patchfile.close()
 
                 command = [os.path.join(fmw_home, "OPatch", "opatch")]
