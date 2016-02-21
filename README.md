@@ -11,6 +11,14 @@ Apart from these requirements, these scripts use python to perform its tasks. Th
 ### Usage
 To install the Oracle Fusion Middleware Components. Download the gz archive for Java and the zip archives for the FMW products and make it available in the installer_location. There is no need to extract the software; the script will take care of it.
 
+There is a wrapper script available that you can use to execute one or more scripts in order. The usage of the script is as follows:
+
+`/usr/bin/python main.py [-?ip] -l installers_patches_location -o oracle_home [-j jdk_home] [-f fmw_home] -h domain_home [-s shared_home] -c db_connect_string -m db_prefix [-w password_file] [-a admin_server_host] [--rsp_file install_response_file] [--domain_name domain_name] [--nm_port nm_port] [--as_port adminserver_port] [--as_ssl_port adminserver_sslport] [--db_password db_datasource_passwd] [--nm_password nodemanager_passwd] [--as_username adminserver_username] [--as_password adminserver_password] [--dba_user SYS|SYSTEM] [--dba_password dba_password] [--soa_profile SMALL|MED|LARGE] [--analytics_with_partitioning N|Y] [--tmp_loc tmp_location] [--inst_group install_os_group] [--use_plain] [--drop-schemas] [-all] [--create_domain] [--add_servers] [--install] [--patch] [--overwrite] [jdk] [wls] [bpm|soa] [wcc] [wcp] [wcs] [ibr] [ucm] [capture] [wccadf] [portal] [pagelet portlet] [discussions] [analytics] [sites] [vs] [insights] [sc] [ss][ohs]`
+
+If you want to have more fine grained control on the install and configure process, you could use the individual scripts. The usage of these scripts is shown below:
+
+To install the software:
+
 `/usr/bin/python install_fmw.py [-?] -l installers_location -o oracle_home [-j jdk_home] [-f fmw_home] [--rsp_file install_response_file] [--tmp_loc tmp_location] [--os_install_group install_os_group] [wls] [bpm|soa] [wcc] [wcp] [wcs] [ohs]`
 
 To create product schemas.
@@ -25,9 +33,13 @@ To create a basic weblogic domain with just the admin server configured:
 
 `wlst.[sh|cmd] build_domain_off.py [-?] -h domain_home [-s shared_home] -c db_connect_string -m db_prefix [-w password_file] [--domain_name domain_name] [--nm_port nm_port] [--as_port adminserver_port] [--as_ssl_port adminserver_sslport] [--db_password db_datasource_passwd] [--nm_password nodemanager_passwd] [--as_password adminserver_password] wls`
 
-To create or extend weblogic domain with fusion middleware components:
+To create a weblogic domain with fusion middleware components:
 
-`wlst.[sh|cmd]  [-?] -h domain_home [-s shared_home] -c db_connect_string -m db_prefix [-w password_file] [--domain_name domain_name] [--nm_port nm_port] [--as_port adminserver_port] [--as_ssl_port adminserver_sslport] [--db_password db_datasource_passwd] [--nm_password nodemanager_passwd] [--as_password adminserver_password] [wls] [bpm|soa] [ibr] [ucm] [capture] [wccadf] [portal] [pagelet portlet] [discussions] [analytics] [sites] [vs] [insights] [sc] [ss] [ohs]`
+`wlst.[sh|cmd] build_domain_off.py [-?] -h domain_home [-s shared_home] -c db_connect_string -m db_prefix [-w password_file] [--domain_name domain_name] [--nm_port nm_port] [--as_port adminserver_port] [--as_ssl_port adminserver_sslport] [--db_password db_datasource_passwd] [--nm_password nodemanager_passwd] [--as_password adminserver_password] [wls] [bpm|soa] [ibr] [ucm] [capture] [wccadf] [portal] [pagelet portlet] [discussions] [analytics] [sites] [vs] [insights] [sc] [ss] [ohs]`
+
+To add a new managed server to the domain:
+
+`wlst.[sh|cmd] add_servers_onl.py [-?] -a admin_server_host -h domain_home [-s shared_home] [-w password_file] [--as_port adminserver_port] [--nm_port nm_port] [--use_plain] [--as_username adminserver_username] [--as_password adminserver_password] [--overwrite]`
 
 ### License
 This program is free software: you can redistribute it and/or modify it as long as you retain the name of the original author and under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
