@@ -21,12 +21,13 @@
 ################################################################################
 import getopt
 import socket
-import sys
 import time
+from java.sql import DriverManager
 
 def main(options, arguments):
     host = options.get("-h")
     port = int(options.get("-p"))
+    connectstring = options.get("-c")
     timeout = int(options.get("--timeout", 3600))
     delay = int(options.get("--delay", 30))
     socket_timeout = int(options.get("--socket_timeout", 5))
@@ -34,32 +35,46 @@ def main(options, arguments):
 
     now=time.time()
     later = time.time()
-    while int(later - now) < timeout:
-        try:
-            conn=socket.socket()
-            conn.settimeout(socket_timeout)
-            conn.connect((host, port))
-            conn.close()
-            break
-        except socket.error:
-            later = time.time()
-            time.sleep(delay)
-        except:
-            print "ERROR: An unexpected error has occurred."
-            sys.exit(2)
+    if "--db" in options:
+        while int(later - now) < timeout:
+            try:
+                conn = DriverManager.getConnection("jdbc:oracle:thin:@%s" %connectstring, "TEST", "test")
+                conn.close()
+                break
+            except java.sql.SQLRecoverableException:
+                later = time.time()
+                time.sleep(delay)
+            except:
+                print "ERROR: An unexpected error has occurred."
+                sys.exit(2)
+    else:
+        while int(later - now) < timeout:
+            try:
+                conn=socket.socket()
+                conn.settimeout(socket_timeout)
+                conn.connect((host, port))
+                conn.close()
+                break
+            except socket.error:
+                later = time.time()
+                time.sleep(delay)
+            except:
+                print "ERROR: An unexpected error has occurred."
+                sys.exit(2)
 
     time.sleep(wait_time)
 
 if __name__ == "__main__":
-    options, arguments = getopt.getopt(sys.argv[1:], "?h:p:",
+    options, arguments = getopt.getopt(sys.argv[1:], "?h:p:c:",
                                        ["timeout=", "delay=", "wait=",
-                                        "socket_timeout="])
+                                        "socket_timeout=", "db"])
     options = dict(options)
 
     if "-?" in options:
-        print "Usage: python %s %s %s" %("wait.py",
-        "[-?] -h host -p port [--wait wait_secs] [--timeout timeout_in_secs]",
-        "[--delay delay_in_secs] [--socket_timeout socket_timeout_in_secs]")
+        print "Usage: python %s %s %s %s" %("wait.py",
+        "[-?] -h host -p port -c db_connect_string [--db] [--wait wait_secs]",
+        "[--timeout timeout_in_secs] [--delay delay_in_secs]",
+        "[--socket_timeout socket_timeout_in_secs] [db]")
         sys.exit(0)
 
     main(options, arguments)
