@@ -38,7 +38,8 @@ options, arguments = getopt.getopt(sys.argv[1:], "?ipl:o:j:f:h:s:c:m:w:a:", [
                                     "as_password=", "tmp_loc=", "inst_group=",
                                     "use_plain", "drop-schemas", "create_domain",
                                     "add_servers", "install", "patch", "all",
-                                    "overwrite"])
+                                    "overwrite", "wait_time=", "timeout=",
+                                    "wait", "host="])
 options = dict(options)
 
 if "-?" in options:
@@ -55,15 +56,39 @@ if "-?" in options:
     "[--analytics_with_partitioning N|Y] [--tmp_loc tmp_location]",
     "[--inst_group install_os_group] [--use_plain] [--drop-schemas] [-all]",
     "[--create_domain] [--add_servers] [--install] [--patch] [--overwrite]",
-    "[jdk] [wls] [bpm|soa] [wcc] [wcp] [wcs] [ibr] [ucm] [capture] [wccadf]",
-    "[portal] [pagelet portlet] [discussions] [analytics] [sites] [vs]",
-    "[insights] [sc] [ss][ohs]")
+    "[--wait milliseconds] [--timeout milliseconds] [--host host] [jdk] [wls]",
+    "[bpm|soa] [wcc] [wcp] [wcs] [ibr] [ucm] [capture] [wccadf] [portal]",
+    "[pagelet portlet] [discussions] [analytics] [sites] [vs] [insights] [sc] [ss] [ohs]")
     sys.exit(0)
 
 base_dir = os.path.dirname(sys.argv[0])
 if base_dir in [".", ""]: base_dir = os.getcwd()
 
 wlst = "wlst.cmd" if platform.system() == "Windows" else "wlst.sh"
+
+if "--wait" in options:
+    if "-c" in options:
+        command = [os.path.join(options.get("-f"), "oracle_common", "common", "bin", wlst),
+                   os.path.join(base_dir, "wait.py")]
+        if "-c" in options: command.extend(["-c", options.get("-c")])
+        if "-w" in options: command.extend(["-w", options.get("-w")])
+        if "--dba_user" in options: command.extend(["--dba_user", options.get("--dba_user")])
+        if "--dba_password" in options: command.extend(["--dba_password", options.get("--dba_password")])
+        command.append("--db")
+        process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        (out, err) = process.communicate()
+        print out, err
+        if process.returncode > 0: sys.exit(process.returncode)
+
+    if "-a" in options:
+        command = [os.path.join(options.get("-f"), "oracle_common", "common", "bin", wlst),
+                   os.path.join(base_dir, "wait.py")]
+        if "-a" in options: command.extend(["-h", options.get("-a")])
+        if "--as_port" in options: command.extend(["-p", options.get("--as_port")])
+        process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        (out, err) = process.communicate()
+        print out, err
+        if process.returncode > 0: sys.exit(process.returncode)
 
 if "--drop-schemas" in options:
     suboptions = {}
@@ -98,6 +123,10 @@ if "--patch" in options or "-p" in options:
     patch_fmw.main(suboptions, arguments)
 
 if "--create_domain" in options:
+    command = [os.path.join(options.get("-f"), "oracle_common", "common", "bin", wlst),
+               os.path.join(base_dir, "create_domain_off.py")]
+
+
     suboptions = {}
     if "-f" in options: suboptions["-f"] = options.get("-f")
     if "-c" in options: suboptions["-c"] = options.get("-c")
@@ -178,6 +207,8 @@ if "--add_servers" in options:
     if "--as_password" in options: command.extend(["--as_password", options.get("--as_password")])
     if "--use_plain" in options: command.append("--use_plain")
     if "--overwrite" in options: command.append("--overwrite")
+    if "--wait_time" in options: command.extend(["--wait", options.get("--wait_time")])
+    if "--timeout" in options: command.extend(["--timeout", options.get("--timeout")])
     command.extend(arguments)
     process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out, err) = process.communicate()

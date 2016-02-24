@@ -56,6 +56,8 @@ def main(options, arguments):
     else:
         overwrite = False
 
+    wait = int(options.get("--wait", 300000))
+    timeout = int(options.get("--timeout", -1))
     feature_set = LinkedHashSet(arguments)
     feature_set.retainAll(domain_metadata.keys())
     if feature_set.size() == 0: return
@@ -71,7 +73,7 @@ def main(options, arguments):
         machine_name = host_name.split(".")[0]
         connect(as_username, as_password, admin_url)
         edit()
-        startEdit()
+        startEdit(waitTimeInMillis=wait, timeOutInMillis=timeout, exclusive="true")
         try:
             dtop_cmo = getMBean("/")
             if machine_name not in [mb.getName() for mb in dtop_cmo.getMachines()]:
@@ -207,15 +209,17 @@ def main(options, arguments):
 if __name__ == "main":
     options, arguments = getopt.getopt(sys.argv[1:], "?a:h:s:w:", ["use_plain",
                                        "as_port=", "nm_port=", "as_username=",
-                                       "as_password=", "overwrite"])
+                                       "as_password=", "wait=", "timeout=",
+                                       "overwrite"])
     options = dict(options)
     
     if "-?" in options:
-        print "Usage: wlst.[sh|cmd] %s %s %s %s %s" %("add_servers_onl.py",
+        print "Usage: wlst.[sh|cmd] %s %s %s %s %s %s" %("add_servers_onl.py",
         "[-?] -a admin_server_host -h domain_home [-s shared_home]",
         "[-w password_file] [--as_port adminserver_port] [--nm_port nm_port]",
         "[--use_plain] [--as_username adminserver_username]",
-        "[--as_password adminserver_password] [--overwrite]")
+        "[--as_password adminserver_password] [--wait wait_millisecs]",
+        "[--timeout timeout_millisecs] [--overwrite]")
         sys.exit(0)
 
     main(options, arguments)

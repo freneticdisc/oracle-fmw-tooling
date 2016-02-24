@@ -27,18 +27,29 @@ from java.sql import DriverManager
 def main(options, arguments):
     host = options.get("-h")
     port = int(options.get("-p"))
-    connectstring = options.get("-c")
+
     timeout = int(options.get("--timeout", 3600))
     delay = int(options.get("--delay", 30))
     socket_timeout = int(options.get("--socket_timeout", 5))
     wait_time = int(options.get("--wait", 0))
+
+    db_conn = options.get("-c", database_metadata.get("database").get("connect-string"))
+    dba_user = options.get("--dba_user", "SYS")
+    dba_pass = options.get("--dba_password", database_metadata.get("database").get("sys-password"))
+    as_port = int(options.get("--as_port", domain_metadata.get("wls").get("as-port")))
+    pwd_file = options.get("-w", "")
+    if os.path.isfile(pwd_file):
+        bfile = open(pwd_file, "r")
+        fcontents = bfile.read().splitlines()
+        bfile.close()
+        dba_pass = fcontents[0]
 
     now=time.time()
     later = time.time()
     if "--db" in options:
         while int(later - now) < timeout:
             try:
-                conn = DriverManager.getConnection("jdbc:oracle:thin:@%s" %connectstring, "TEST", "test")
+                conn = DriverManager.getConnection("jdbc:oracle:thin:@%s" %db_conn, dba_user, dba_pass)
                 conn.close()
                 break
             except java.sql.SQLRecoverableException:
@@ -74,7 +85,7 @@ if __name__ == "__main__":
         print "Usage: python %s %s %s %s" %("wait.py",
         "[-?] -h host -p port -c db_connect_string [--db] [--wait wait_secs]",
         "[--timeout timeout_in_secs] [--delay delay_in_secs]",
-        "[--socket_timeout socket_timeout_in_secs] [db]")
+        "[--socket_timeout socket_timeout_in_secs] [--db]")
         sys.exit(0)
 
     main(options, arguments)
