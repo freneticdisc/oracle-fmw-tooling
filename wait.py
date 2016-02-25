@@ -130,4 +130,3 @@ if __name__ == "__main__":
 
     if "-h" in options:
         wait_for_socket(options, arguments)
-

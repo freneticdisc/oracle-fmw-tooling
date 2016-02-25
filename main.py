@@ -81,6 +81,7 @@ if "--wait" in options:
         if "--wait_time" in options: suboptions["--wait"] = options.get("--wait_time")
         if "--socket_timeout" in options: suboptions["--socket_timeout"] = options.get("--socket_timeout")
         wait.wait_for_database(suboptions, arguments)
+
     if "-a" in options:
         suboptions = {}
         if "-a" in options: suboptions["-h"] = options.get("-a")

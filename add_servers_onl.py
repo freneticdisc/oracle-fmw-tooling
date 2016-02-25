@@ -70,6 +70,7 @@ def main(options, arguments):
             as_password = fcontents.pop()
 
         # Using IP for listen address
+        # Revert back when Docker Networking is better
         host_name = socket.gethostname()
         machine_name = host_name.split(".")[0]
         host_name = socket.gethostbyname(host_name)
