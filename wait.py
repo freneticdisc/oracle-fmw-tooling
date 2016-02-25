@@ -25,6 +25,17 @@ import time
 from java.sql import DriverManager
 
 def main(options, arguments):
+    base_dir = os.path.dirname(sys.argv[0])
+    if base_dir in [".", ""]: base_dir = os.getcwd()
+
+    if os.path.isfile(os.path.join(base_dir, "metadata.json")):
+        mfile = open(os.path.join(base_dir, "metadata.json"), "r")
+        domain_metadata = eval(mfile.read())
+        mfile.close()
+    else:
+        print "Mandatory file %s cannot be located in %s." %("metadata.json", base_dir)
+        sys.exit(1)
+
     host = options.get("-h")
     port = int(options.get("-p", 80))
 
