@@ -75,7 +75,7 @@ if "--wait" in options:
         if "--dba_user" in options: command.extend(["--dba_user", options.get("--dba_user")])
         if "--dba_password" in options: command.extend(["--dba_password", options.get("--dba_password")])
         command.append("--db")
-        command.extend(["--wait", "120"])
+        command.extend(["--wait", "300"])
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         (out, err) = process.communicate()
         print out, err
