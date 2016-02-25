@@ -45,7 +45,7 @@ def main(options, arguments):
     wait_time = int(options.get("--wait", 0))
 
     db_conn = options.get("-c", metadata.get("database").get("connect-string"))
-    dba_user = options.get("--dba_user", "SYS")
+    dba_user = options.get("--dba_user", "SYS AS SYSDBA")
     dba_pass = options.get("--dba_password", metadata.get("database").get("sys-password"))
     as_port = int(options.get("--as_port", metadata.get("wls").get("as-port")))
     pwd_file = options.get("-w", "")
