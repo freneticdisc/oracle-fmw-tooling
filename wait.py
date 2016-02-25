@@ -70,13 +70,11 @@ def main(options, arguments):
                 break
             except:
                 print "error"
-                later = time.time()
-                time.sleep(delay)
-            finally:
-                # To avoid memory leaks
                 if not rs.isClosed(): rs.close()
                 if not stmt.isClosed(): stmt.close()
                 if not conn.isClosed(): conn.close()
+                later = time.time()
+                time.sleep(delay)                
     else:
         while int(later - now) < timeout:
             try:
