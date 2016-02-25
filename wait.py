@@ -61,9 +61,11 @@ def main(options, arguments):
         while int(later - now) < timeout:
             try:
                 conn = DriverManager.getConnection("jdbc:oracle:thin:@%s" %db_conn, dba_user, dba_pass)
+                print "Connected to the database"
                 conn.close()
                 break
             except:
+                print "error"
                 later = time.time()
                 time.sleep(delay)
     else:
