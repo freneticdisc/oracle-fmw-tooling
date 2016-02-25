@@ -75,7 +75,7 @@ def main(options, arguments):
 
     time.sleep(wait_time)
 
-if __name__ == "__main__":
+if __name__ == "main":
     options, arguments = getopt.getopt(sys.argv[1:], "?h:p:c:",
                                        ["timeout=", "delay=", "wait=",
                                         "socket_timeout=", "db"])
