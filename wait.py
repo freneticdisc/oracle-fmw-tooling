@@ -30,7 +30,7 @@ def main(options, arguments):
 
     if os.path.isfile(os.path.join(base_dir, "metadata.json")):
         mfile = open(os.path.join(base_dir, "metadata.json"), "r")
-        domain_metadata = eval(mfile.read())
+        metadata = eval(mfile.read())
         mfile.close()
     else:
         print "Mandatory file %s cannot be located in %s." %("metadata.json", base_dir)
@@ -44,10 +44,10 @@ def main(options, arguments):
     socket_timeout = int(options.get("--socket_timeout", 5))
     wait_time = int(options.get("--wait", 0))
 
-    db_conn = options.get("-c", database_metadata.get("database").get("connect-string"))
+    db_conn = options.get("-c", metadata.get("database").get("connect-string"))
     dba_user = options.get("--dba_user", "SYS")
-    dba_pass = options.get("--dba_password", database_metadata.get("database").get("sys-password"))
-    as_port = int(options.get("--as_port", domain_metadata.get("wls").get("as-port")))
+    dba_pass = options.get("--dba_password", metadata.get("database").get("sys-password"))
+    as_port = int(options.get("--as_port", metadata.get("wls").get("as-port")))
     pwd_file = options.get("-w", "")
     if os.path.isfile(pwd_file):
         bfile = open(pwd_file, "r")
