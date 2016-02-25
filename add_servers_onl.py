@@ -71,6 +71,7 @@ def main(options, arguments):
 
         host_name = socket.gethostname()
         machine_name = host_name.split(".")[0]
+        host_name = socket.gethostbyname(host_name)
         connect(as_username, as_password, admin_url)
         edit()
         startEdit(waitTimeInMillis=wait, timeOutInMillis=timeout, exclusive="true")
@@ -191,7 +192,8 @@ def main(options, arguments):
             print "Configuring Nodemanager."
             cd("/NMProperties")
             set("NodeManagerHome", os.path.join(domain_home, "nodemanager"))
-            set("ListenAddress", socket.gethostname())
+            # set("ListenAddress", socket.gethostname())
+            set("ListenAddress", host_name)
             set("ListenPort", nm_port)
             print "Writing Domain Configuration."
             writeDomain(domain_home)

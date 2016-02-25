@@ -28,6 +28,7 @@ import install_fmw
 import patch_fmw
 import create_schemas
 import drop_schemas
+import wait
 
 options, arguments = getopt.getopt(sys.argv[1:], "?ipl:o:j:f:h:s:c:m:w:a:", [
                                     "rsp_file=", "domain_name=", "nm_port=",
@@ -39,7 +40,7 @@ options, arguments = getopt.getopt(sys.argv[1:], "?ipl:o:j:f:h:s:c:m:w:a:", [
                                     "use_plain", "drop-schemas", "create_domain",
                                     "add_servers", "install", "patch", "all",
                                     "overwrite", "wait_time=", "timeout=",
-                                    "wait"])
+                                    "wait", "delay=", "socket_timeout="])
 options = dict(options)
 
 if "-?" in options:
@@ -56,8 +57,8 @@ if "-?" in options:
     "[--analytics_with_partitioning N|Y] [--tmp_loc tmp_location]",
     "[--inst_group install_os_group] [--use_plain] [--drop-schemas] [-all]",
     "[--create_domain] [--add_servers] [--install] [--patch] [--overwrite]",
-    "[--wait milliseconds] [--timeout milliseconds] [jdk] [wls] [bpm|soa]",
-    "[wcc] [wcp] [wcs] [ibr] [ucm] [capture] [wccadf] [portal] [pagelet portlet]",
+    "[--delay seconds] [--timeout seconds] [jdk] [wls] [bpm|soa] [wcc]",
+    "[wcp] [wcs] [ibr] [ucm] [capture] [wccadf] [portal] [pagelet portlet]",
     "[discussions] [analytics] [sites] [vs] [insights] [sc] [ss] [ohs]")
     sys.exit(0)
 
@@ -68,29 +69,28 @@ wlst = "wlst.cmd" if platform.system() == "Windows" else "wlst.sh"
 
 if "--wait" in options:
     if "-c" in options:
-        command = [os.path.join(options.get("-f"), "oracle_common", "common", "bin", wlst),
-                   os.path.join(base_dir, "wait.py")]
-        if "-c" in options: command.extend(["-c", options.get("-c")])
-        if "-w" in options: command.extend(["-w", options.get("-w")])
-        if "--dba_user" in options: command.extend(["--dba_user", options.get("--dba_user")])
-        if "--dba_password" in options: command.extend(["--dba_password", options.get("--dba_password")])
-        command.append("--db")
-        command.extend(["--wait", "300"])
-        process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        (out, err) = process.communicate()
-        print out, err
-        if process.returncode > 0: sys.exit(process.returncode)
+        suboptions = {}
+        if "-f" in options: suboptions["-f"] = options.get("-f")
+        if "-c" in options: suboptions["-c"] = options.get("-c")
+        if "-m" in options: suboptions["-m"] = options.get("-m")
+        if "-w" in options: suboptions["-w"] = options.get("-w")
+        if "--dba_user" in options: suboptions["--dba_user"] = options.get("--dba_user")
+        if "--dba_password" in options: suboptions["--dba_password"] = options.get("--dba_password")
+        if "--delay" in options: suboptions["--delay"] = options.get("--delay")
+        if "--timeout" in options: suboptions["--timeout"] = options.get("--timeout")
+        if "--wait_time" in options: suboptions["--wait"] = options.get("--wait_time")
+        if "--socket_timeout" in options: suboptions["--socket_timeout"] = options.get("--socket_timeout")
+        wait.wait_for_database(suboptions, arguments)
 
     if "-a" in options:
-        command = [os.path.join(options.get("-f"), "oracle_common", "common", "bin", wlst),
-                   os.path.join(base_dir, "wait.py")]
-        if "-a" in options: command.extend(["-h", options.get("-a")])
-        if "--as_port" in options: command.extend(["-p", options.get("--as_port")])
-        command.extend(["--wait", "60"])
-        process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        (out, err) = process.communicate()
-        print out, err
-        if process.returncode > 0: sys.exit(process.returncode)
+        suboptions = {}
+        if "-a" in options: suboptions["-h"] = options.get("-a")
+        if "--as_port" in options: suboptions["-p"] = options.get("--as_port")
+        if "--delay" in options: suboptions["--delay"] = options.get("--delay")
+        if "--timeout" in options: suboptions["--timeout"] = options.get("--timeout")
+        if "--wait_time" in options: suboptions["--wait"] = options.get("--wait_time")
+        if "--socket_timeout" in options: suboptions["--socket_timeout"] = options.get("--socket_timeout")
+        wait.wait_for_socket(suboptions, arguments)
 
 if "--drop-schemas" in options:
     suboptions = {}
