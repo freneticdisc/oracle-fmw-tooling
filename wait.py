@@ -62,12 +62,21 @@ def main(options, arguments):
             try:
                 conn = DriverManager.getConnection("jdbc:oracle:thin:@%s" %db_conn, dba_user, dba_pass)
                 print "Connected to the database"
+                stmt = conn.createStatement()
+                rs = stmt.executeQuery("select * from dual")
+                rs.close()
+                stmt.close()
                 conn.close()
                 break
             except:
                 print "error"
                 later = time.time()
                 time.sleep(delay)
+            finally:
+                # To avoid memory leaks
+                if not rs.isClosed(): rs.close()
+                if not stmt.isClosed(): stmt.close()
+                if not conn.isClosed(): conn.close()
     else:
         while int(later - now) < timeout:
             try:
