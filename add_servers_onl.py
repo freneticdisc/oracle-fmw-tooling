@@ -69,6 +69,7 @@ def main(options, arguments):
             bfile.close()
             as_password = fcontents.pop()
 
+        # Using IP for listen address
         host_name = socket.gethostname()
         machine_name = host_name.split(".")[0]
         host_name = socket.gethostbyname(host_name)
