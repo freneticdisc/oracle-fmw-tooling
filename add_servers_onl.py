@@ -192,7 +192,6 @@ def main(options, arguments):
             print "Configuring Nodemanager."
             cd("/NMProperties")
             set("NodeManagerHome", os.path.join(domain_home, "nodemanager"))
-            # set("ListenAddress", socket.gethostname())
             set("ListenAddress", host_name)
             set("ListenPort", nm_port)
             print "Writing Domain Configuration."
