@@ -63,9 +63,12 @@ def main(options, arguments):
                 conn = DriverManager.getConnection("jdbc:oracle:thin:@%s" %db_conn, dba_user, dba_pass)
                 conn.close()
                 break
-            except:
+            except java.sql.SQLRecoverableException:
                 later = time.time()
                 time.sleep(delay)
+            except:
+                print "ERROR: An unexpected error has occurred."
+                sys.exit(2)
     else:
         while int(later - now) < timeout:
             try:
