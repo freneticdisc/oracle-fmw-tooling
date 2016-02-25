@@ -123,10 +123,6 @@ if "--patch" in options or "-p" in options:
     patch_fmw.main(suboptions, arguments)
 
 if "--create_domain" in options:
-    command = [os.path.join(options.get("-f"), "oracle_common", "common", "bin", wlst),
-               os.path.join(base_dir, "create_domain_off.py")]
-
-
     suboptions = {}
     if "-f" in options: suboptions["-f"] = options.get("-f")
     if "-c" in options: suboptions["-c"] = options.get("-c")
