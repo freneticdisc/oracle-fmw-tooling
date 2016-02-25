@@ -70,9 +70,6 @@ def main(options, arguments):
                 break
             except:
                 print "error"
-                if not rs.isClosed(): rs.close()
-                if not stmt.isClosed(): stmt.close()
-                if not conn.isClosed(): conn.close()
                 later = time.time()
                 time.sleep(delay)                
     else:
