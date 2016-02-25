@@ -37,7 +37,7 @@ options, arguments = getopt.getopt(sys.argv[1:], "?ipl:o:j:f:h:s:c:m:w:a:", [
                                     "dba_password=", "soa_profile=",
                                     "analytics_with_partitioning=",
                                     "as_password=", "tmp_loc=", "inst_group=",
-                                    "use_plain", "drop-schemas", "create_domain",
+                                    "use_plain", "drop_schemas", "create_domain",
                                     "add_servers", "install", "patch", "all",
                                     "overwrite", "wait_time=", "timeout=",
                                     "wait", "delay=", "socket_timeout="])
@@ -55,7 +55,7 @@ if "-?" in options:
     "[--as_password adminserver_password] [--dba_user SYS|SYSTEM]",
     "[--dba_password dba_password] [--soa_profile SMALL|MED|LARGE]",
     "[--analytics_with_partitioning N|Y] [--tmp_loc tmp_location]",
-    "[--inst_group install_os_group] [--use_plain] [--drop-schemas] [-all]",
+    "[--inst_group install_os_group] [--use_plain] [--drop_schemas] [-all]",
     "[--create_domain] [--add_servers] [--install] [--patch] [--overwrite]",
     "[--delay seconds] [--timeout seconds] [jdk] [wls] [bpm|soa] [wcc]",
     "[wcp] [wcs] [ibr] [ucm] [capture] [wccadf] [portal] [pagelet portlet]",
@@ -92,7 +92,7 @@ if "--wait" in options:
         if "--socket_timeout" in options: suboptions["--socket_timeout"] = options.get("--socket_timeout")
         wait.wait_for_socket(suboptions, arguments)
 
-if "--drop-schemas" in options:
+if "--drop_schemas" in options:
     suboptions = {}
     if "-f" in options: suboptions["-f"] = options.get("-f")
     if "-c" in options: suboptions["-c"] = options.get("-c")
