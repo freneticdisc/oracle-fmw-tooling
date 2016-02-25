@@ -39,7 +39,7 @@ options, arguments = getopt.getopt(sys.argv[1:], "?ipl:o:j:f:h:s:c:m:w:a:", [
                                     "use_plain", "drop-schemas", "create_domain",
                                     "add_servers", "install", "patch", "all",
                                     "overwrite", "wait_time=", "timeout=",
-                                    "wait", "host="])
+                                    "wait"])
 options = dict(options)
 
 if "-?" in options:
@@ -56,9 +56,9 @@ if "-?" in options:
     "[--analytics_with_partitioning N|Y] [--tmp_loc tmp_location]",
     "[--inst_group install_os_group] [--use_plain] [--drop-schemas] [-all]",
     "[--create_domain] [--add_servers] [--install] [--patch] [--overwrite]",
-    "[--wait milliseconds] [--timeout milliseconds] [--host host] [jdk] [wls]",
-    "[bpm|soa] [wcc] [wcp] [wcs] [ibr] [ucm] [capture] [wccadf] [portal]",
-    "[pagelet portlet] [discussions] [analytics] [sites] [vs] [insights] [sc] [ss] [ohs]")
+    "[--wait milliseconds] [--timeout milliseconds] [jdk] [wls] [bpm|soa]",
+    "[wcc] [wcp] [wcs] [ibr] [ucm] [capture] [wccadf] [portal] [pagelet portlet]",
+    "[discussions] [analytics] [sites] [vs] [insights] [sc] [ss] [ohs]")
     sys.exit(0)
 
 base_dir = os.path.dirname(sys.argv[0])
