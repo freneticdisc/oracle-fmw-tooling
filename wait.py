@@ -62,10 +62,6 @@ def main(options, arguments):
             try:
                 conn = DriverManager.getConnection("jdbc:oracle:thin:@%s" %db_conn, dba_user, dba_pass)
                 print "Connected to the database"
-                stmt = conn.createStatement()
-                rs = stmt.executeQuery("select * from dual")
-                rs.close()
-                stmt.close()
                 conn.close()
                 break
             except:
