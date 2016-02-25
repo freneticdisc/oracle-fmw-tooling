@@ -26,7 +26,7 @@ from java.sql import DriverManager
 
 def main(options, arguments):
     host = options.get("-h")
-    port = int(options.get("-p"))
+    port = int(options.get("-p", 80))
 
     timeout = int(options.get("--timeout", 3600))
     delay = int(options.get("--delay", 30))
