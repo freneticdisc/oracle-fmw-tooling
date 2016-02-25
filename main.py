@@ -86,6 +86,7 @@ if "--wait" in options:
                    os.path.join(base_dir, "wait.py")]
         if "-a" in options: command.extend(["-h", options.get("-a")])
         if "--as_port" in options: command.extend(["-p", options.get("--as_port")])
+        command.extend(["--wait", "60"])
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         (out, err) = process.communicate()
         print out, err

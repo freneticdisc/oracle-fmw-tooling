@@ -82,8 +82,9 @@ def main(options, arguments):
             except:
                 print "ERROR: An unexpected error has occurred."
                 sys.exit(2)
-
+    print time.time()
     time.sleep(wait_time)
+    print time.time()
 
 if __name__ == "main":
     options, arguments = getopt.getopt(sys.argv[1:], "?h:p:c:",
