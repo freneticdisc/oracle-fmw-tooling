@@ -40,9 +40,8 @@ def wait_for_database(options, arguments):
         sys.exit(1)
 
     timeout = int(options.get("--timeout", 3600))
-    delay = int(options.get("--delay", 60))
-    socket_timeout = int(options.get("--socket_timeout", 5))
-    wait_time = int(options.get("--wait", 0))
+    delay = int(options.get("--delay", 240))
+    wait_time = int(options.get("--wait", 60))
 
     fmw_home = options.get("-f")
     db_conn = options.get("-c", metadata.get("database").get("connect-string"))
