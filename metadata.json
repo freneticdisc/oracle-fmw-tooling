@@ -189,7 +189,10 @@
         ],
         "installer": "fmw_12.2.1.0.0_wccontent_generic.jar",
         "test-dir": "wccontent",
-        "install_type": "WebCenter Content"
+        "install_type": "WebCenter Content",
+        "patches": [
+        	"p22585448_122100_Generic.zip"
+        ]
     },
     "wccadf": {
         "datasources": [
