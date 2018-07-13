@@ -28,6 +28,7 @@ import tarfile
 import zipfile
 import tempfile
 import subprocess
+import shutil
 
 def main(options, arguments):
     products = ["wls", "bpm", "soa", "wcc", "wcp", "wcs", "ohs"]
@@ -106,7 +107,11 @@ def main(options, arguments):
             print out, err
 
             for filename in filelist:
-                os.remove(os.path.join(scratch, filename))
+                if os.path.exists(os.path.join(scratch, filename)):
+                    if os.path.isdir(os.path.join(scratch, filename)):
+                        shutil.rmtree(os.path.join(scratch, filename), ignore_errors=True)
+                    elif os.path.isfile(os.path.join(scratch, filename)):
+                        os.remove(os.path.join(scratch, filename))
 
     os.unlink(tmp_file)
 
